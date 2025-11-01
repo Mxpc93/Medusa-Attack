@@ -1,0 +1,42 @@
+Template para ataque num IP especifico
+
+## Passo 1 - Escaneando o ip do alvo em busca de aberturas
+
+nmap -v -sU <ip do alvo>
+
+[Resposta do nmap]
+
+## Passo 2 - Enumeração do ip do alvo
+## A diferença entre os comandos abaixo estão nos dados retornados, no primeiro caso haverá o scan do ip e identificação das portas abertas sem o versionamento dos serviços, já no segundo ele retornará com essas informações que podem determinar a porta alvo.
+## Esses comandos podem ser executados sequencialmente como passos 1 e 2.
+
+nmap -v -sV -sU <ip do alvo>
+
+[Resposta do nmap]
+
+## Passo 3 - Escolha da(s) porta(s) alvo
+## Nessa etapa escolho a porta ou as portas para serem isoladas e enumeradas.
+
+nmap -v -sV -sU <ip do alvo> -p <porta(s) escolhida(s)>
+
+[Resposta do nmap]
+
+## Passo 4 - Criação de wordlists
+## Há várias formas de elaborar essas listas desde de listas de usernames e passwords vazadas, uso de IA para gerar nomes e combinações aleatórias, até uso da politica de usuários e senhas do alvo.
+
+## Passo 5 - Usar a Medusa para o ataque de força bruta
+## É aqui onde a Medusa efetivamente será utilizada para o ataque.
+
+medusa -h <ip do alvo> -U <lista de usuários> -P <lista de senhas> -M <modulo de ataque> -t <número de threats concomitantes>
+
+[Resultado do ataque]
+
+## Passo 6 - Validação do Resultado
+## Esse passo somente acontecerá se o Medusa retornar com a mensagem Account Found - combinação encontrada
+
+<protocolo da porta> <ip do alvo>
+login encontrado
+senha encontrada
+[Resultado da requisição]
+
+## Conexão estabelecida
