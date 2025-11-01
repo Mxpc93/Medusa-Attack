@@ -1,0 +1,81 @@
+Template para ataque numa lista de IPs - PT/BR
+
+## Passo 1 - Criação de wordlist
+## Há várias formas de elaborar essas listas podendo ser de listas de IPs vazados, uso de IA para gerar combinações aleatórias.
+
+## Passo 2 - Escaneando a lista de ips do alvo em busca de aberturas
+
+nmap -sU -iL <lista de ips do alvo>
+
+[Resposta do nmap]
+
+## Passo 3 - Enumeração dos ips do alvo
+## A diferença entre os comandos abaixo estão nos dados retornados, no primeiro caso haverá o scan do ip e identificação das portas abertas sem o versionamento dos serviços, já no segundo ele retornará com essas informações que podem determinar a porta alvo.
+## Esses comandos podem ser executados sequencialmente como passos 1 e 2.
+
+nmap -sV -iL <lista de ips do alvo>
+
+[Resposta do nmap]
+
+## Passo 4 - Escolha da(s) porta(s) alvo
+## Nessa etapa escolho a porta ou as portas para serem isoladas e enumeradas.
+
+nmap -v -sV -sU -iL <lista de ips do alvo> -p <porta(s) escolhida(s)>
+
+[Resposta do nmap]
+
+## Passo 5 - Criação de wordlists
+## Há várias formas de elaborar essas listas desde de listas de usernames e passwords vazadas, uso de IA para gerar nomes e combinações aleatórias, até uso da politica de usuários e senhas do alvo.
+
+## Passo 6 - Usar a Medusa para o ataque de força bruta
+## É aqui onde a Medusa efetivamente será utilizada para o ataque.
+
+medusa -H <lista de ips do alvo> -U <lista de usuários> -P <lista de senhas> -M <modulo de ataque> -t <número de threats concomitantes>
+
+[Resultado do ataque]
+
+## Passo 7 - Validação do Resultado
+## Esse passo somente acontecerá se o Medusa retornar com a mensagem Account Found - combinação encontrada
+
+<protocolo da porta> <ip do alvo>
+login encontrado
+senha encontrada
+[Resultado da requisição]
+
+## Conexão estabelecida
+
+Template for Vulnerability Assessment/Penetration Testing (Ethical Hacking) on an IP List
+
+## Step 1 - Creation of Wordlist/Dictionary for Credential Testing
+
+## There are various ways to elaborate these lists, such as leaked credential lists, or using AI/generators to create random combinations.
+
+## Step 2 - Scanning the Target IP List for Openings (Port Scanning)
+
+nmap -sU -iL <target ip list> (UDP Scan)
+
+
+## Step 3 - Target IP Enumeration (Service Versioning)
+## The difference between the commands below lies in the returned data: the first one scans the IP and identifies open ports without service versioning, while the second one returns this information, which can determine the target port.
+## These commands can be executed sequentially as steps 1 and 2.
+
+nmap -sV -iL <target ip list> (TCP Scan with Service Versioning)
+
+## Step 4 - Selection of Target Port(s)
+## In this step, the port or ports are selected to be isolated and further enumerated.
+
+nmap -v -sV -sU -iL <target ip list> -p <selected port(s)>
+
+## Step 5 - Creation of Credential Wordlists
+## There are various ways to elaborate these lists, such as from leaked usernames and passwords, using AI to generate random names and combinations, or leveraging the target's known user/password policy.
+
+## Step 6 - Using Medusa for Credential Testing (Authentication Audit)
+## This is where Medusa is utilized to audit the strength of the system's authentication.
+
+medusa -H <target ip list> -U <user list> -P <password list> -M <attack module/protocol> -t <number of concurrent threads>
+
+## Step 7 - Validation of Test Results
+## This step only occurs if Medusa returns the message 'Account Found'.
+Connection Established 
+
+(Verification of Successful Credential Test)
